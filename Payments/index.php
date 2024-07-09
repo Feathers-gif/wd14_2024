@@ -1,10 +1,10 @@
 <?php
 
-use Payments\Abstract\Tinkof as TinkofEU;
+use Payments\Class\Asia\Tinkof;
+use Payments\Class\EU\Sber;
 
 
 $tinkoff = new Tinkof();
-$tinkoff = new TinkofEU();
 
 $tinkoff->setUserId(1)
     ->setPrice(1234)

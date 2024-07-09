@@ -1,6 +1,6 @@
 <?php
 
-namespace Payments\Class\Asia;
+namespace Payments\Class\EU;
 
 use Payments\Abstract\PaymentsEU;
 
