@@ -27,11 +27,13 @@ abstract class PaymentsEU {
     public function setData(array $data): static
     {
         $this->data = $data;
+        var_dump('ABSTRAKT');
         return $this;
     }
     public function send(): static
     {
         $api_key = self::API_KEY;
+        echo __CLASS__ . PHP_EOL;
         //отправка данных
         return $this;
     }

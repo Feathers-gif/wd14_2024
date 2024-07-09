@@ -1,20 +1,24 @@
 <?php
 
 use Payments\Class\Asia\Tinkof;
-use Payments\Class\EU\Sber;
+use Payments\Class\EU\Tinkof as TAsia;
+
+include './Abstract/PaymentsEU.php';
+include './Class/Asia/Tinkof.php';
+include './Class/EU/Tinkof.php';
+
+$tinkoffEU = new Tinkof();
 
 
-$tinkoff = new Tinkof();
-
-$tinkoff->setUserId(1)
+$tinkoffEU->setUserId(1)
     ->setPrice(1234)
     ->setOrderId(6)
     ->setData(['test' => 'test'])
     ->send();
 
-$sber = new Sber();
+$tinkoffASIS = new TAsia();
 
-$sber->setUserId(1)
+$tinkoffASIS->setUserId(1)
     ->setPrice(1234)
     ->setOrderId(6)
     ->setData(['test' => 'test'])

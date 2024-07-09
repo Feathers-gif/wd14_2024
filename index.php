@@ -61,9 +61,7 @@ class User
         $userID = 1;
     }
 
-    public function setWhere(MySqlConnect $mySqlConnect){
-        $this->connect
-    }
+
 }
 $user = new User();
 $userID = 0;

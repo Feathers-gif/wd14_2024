@@ -8,14 +8,16 @@ class Tinkof extends PaymentsEU
     public const API_KEY = 'zdxfajsdkhfoqkweghipofqvu';
 
     /**
-     * Это ПЕРЕГРУЗКА
+     * Это Полиморфизм
      * @param array $data
      * @return $this
      */
     public function setData(array $data): static
     {
         $this->data = $data;
+        var_dump('TINKOF ASIA');
         return $this;
     }
 }
+
 
