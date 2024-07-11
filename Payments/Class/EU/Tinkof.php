@@ -9,6 +9,7 @@ class Tinkof extends PaymentsEU
     use Order;
     public const API_KEY = 'zdxfajsdkhfoqkweghipofqvu';
 
+
     /**
      * Это Полиморфизм
      * @param array $data
