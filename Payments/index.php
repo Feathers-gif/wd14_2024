@@ -7,6 +7,7 @@ include './Interface/Payment.php';
 include './Abstract/PaymentsEU.php';
 include './Class/Asia/Tinkof.php';
 include './Class/EU/Tinkof.php';
+include './Trait/Order.php';
 
 $tinkoffEU = new Tinkof();
 
@@ -24,4 +25,3 @@ $tinkoffASIS->setUserId(1)
     ->setOrderId(6)
     ->setData(['test' => 'test'])
     ->send();
-

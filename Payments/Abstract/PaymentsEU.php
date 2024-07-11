@@ -14,6 +14,12 @@ abstract class PaymentsEU implements Payment {
         $this->user_id = $user_id;
         return $this;
     }
+
+    public function getOrderId()
+    {
+        return $this;
+    }
+
     public function setOrderId(int $order_id): static
     {
         $this->order_id = $order_id;

@@ -2,9 +2,11 @@
 namespace Payments\Class\EU;
 
 use Payments\Abstract\PaymentsEU;
+use Payments\Trait\Order;
 
 class Tinkof extends PaymentsEU
 {
+    use Order;
     public const API_KEY = 'zdxfajsdkhfoqkweghipofqvu';
 
     /**
@@ -15,6 +17,8 @@ class Tinkof extends PaymentsEU
     public function setData(array $data): static
     {
         $this->data = $data;
+
+        $this->data['order_id'] = $this->getOrderId();
         var_dump('TINKOF EU');
         return $this;
     }
