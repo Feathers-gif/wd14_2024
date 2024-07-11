@@ -18,5 +18,11 @@ class Tinkof extends PaymentsEU
         var_dump('TINKOF EU');
         return $this;
     }
+
+    public function validation($data): bool
+    {
+        // TODO: Implement validation() method.
+        return true;
+    }
 }
 

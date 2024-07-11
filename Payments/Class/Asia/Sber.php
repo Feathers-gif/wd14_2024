@@ -18,4 +18,9 @@ class Sber extends PaymentsEU
         $this->data = $data;
         return $this;
     }
+
+    public function validation($data): bool
+    {
+        // TODO: Implement validation() method.
+    }
 }

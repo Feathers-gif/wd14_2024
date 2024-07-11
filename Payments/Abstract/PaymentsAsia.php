@@ -2,8 +2,9 @@
 namespace Payments\Abstract;
 
 use Payments\Interface\Payment;
+use Payments\Interface\PaymentSetData;
 
-abstract class PaymentsEU implements Payment {
+abstract class PaymentsAsia implements Payment, PaymentSetData {
     public int $user_id;
     public int $order_id;
     public int $price;
