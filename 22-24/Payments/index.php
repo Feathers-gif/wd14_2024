@@ -1,15 +1,16 @@
 <?php
 
-use Payments\Class\Asia\Tinkof;
-use Payments\Class\EU\Tinkof as TAsia;
-use Payments\Static\Price;
-use Payments\Static\Counter;
+use Payments\Class\Asia\Alfa;
+use Payments\Static\OldConnect;
+use Payments\Static\OldConnectEx;
 
 /*include './Interface/Payment.php';
 include './Abstract/PaymentsEU.php';
 include './Class/Asia/Tinkof.php';
 include './Class/EU/Tinkof.php';
 include './Trait/Order.php';
+include './Static/Price.php';
+include './Static/Counter.php';
 
 $tinkoffEU = new Tinkof();
 
@@ -28,9 +29,6 @@ $tinkoffASIS->setUserId(1)
     ->setData(['test' => 'test'])
     ->send();*/
 
-include './Static/Price.php';
-include './Static/Counter.php';
-
 //$objPrice = new Price();
 //$objPrice->price;//обратиться к свойству
 //$objPrice->getPrice();//обратиться к методу
@@ -40,7 +38,7 @@ include './Static/Counter.php';
 Counter::increment();
 echo Counter::$count . PHP_EOL;*/
 
-$counter = new Counter();
+/*$counter = new Counter();
 $counter->plus();
 $counter->decrement();
 
@@ -49,4 +47,19 @@ $counter2->plus();
 $counter2->decrement();
 
 echo Counter::$count . PHP_EOL;
-echo Counter::NAME . PHP_EOL;
+echo Counter::NAME . PHP_EOL;*/
+
+//include './Singleton/DataBase.php';
+
+//class 1
+//$db = DataBase::getInstance();
+//class 2
+//$db1 = DataBase::getInstance();
+
+include './Static/OldConnect.php';
+
+OldConnect::test();
+OldConnectEx::test();
+$obj = new OldConnectEx();
+
+(new Alfa())->validation();
