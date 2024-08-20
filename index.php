@@ -1,68 +1,171 @@
 <pre>
 <?php
 
-class MySqlConnect
+$connect = 'mysql:host=MySQL-8.2;dbname=offer';
+
+$username = 'root';
+$password = '';
+global $age;
+global $id;
+global $pdo;
+try {
+    $pdo = new PDO($connect, $username, $password);
+
+    $age = $_GET['age'] ?? '';
+    $id = $_GET['id'];
+
+
+    function select()
+    {
+        global $pdo;
+        global $age;
+        $sql = 'SELECT * FROM user WHERE age > :age';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'age' => $age
+        ]);
+
+        echo '<div style="display: block">';
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo '<div>';
+            echo '<span> name: ' . $row['name'] . '</span>';
+            echo '<span> age: ' . $row['age'] . '</span>';
+            echo '</div>';
+        }
+        echo '</div>';
+    }
+
+    select();
+
+    function insert()
+    {
+        global $pdo;
+        $sql = 'INSERT INTO `user` (`login`, `pass`, `name`, `date`, `phone`, `age`) VALUES (:login, :pass, :name, now(), :phone, :age)';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'login' => 'login' . rand(0, 1000),
+            'pass' => 'pass' . rand(0, 1000),
+            'name' => 'name' . rand(0, 1000),
+            'phone' => 'phone' . rand(0, 1000),
+            'age' => rand(22, 100),
+        ]);
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            print_r($row);
+        }
+    }
+
+    //insert();
+
+    function update()
+    {
+        global $pdo;
+        global $id;
+        $sql = 'UPDATE `user` SET `login` = :login, `pass` = :pass, `name` = :name, `date` = now(), `phone` = :phone, `age` = :age WHERE `user`.`id` = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'id' => $id,
+            'login' => 'login' . rand(0, 1000),
+            'pass' => 'pass' . rand(0, 1000),
+            'name' => 'name' . rand(0, 1000),
+            'phone' => 'phone' . rand(0, 1000),
+            'age' => rand(22, 100),
+        ]);
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            print_r($row);
+        }
+    }
+
+    //update();
+
+    function delete()
+    {
+        global $pdo;
+        global $id;
+        $sql = 'DELETE FROM user WHERE `user`.`id` = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'id' => $id,
+        ]);
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            print_r($row);
+        }
+    }
+
+    //delete();
+
+    //var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
+
+    //echo 'good';
+} catch (Exception $exception) {
+    echo 'error: ' . $exception->getMessage();
+}
+
+abstract class mysql
 {
-    private $login;
-    private $password;
-    private $host;
-    private $user;
+    public PDO $pdo;
+    public string $table;
+    public string $sql = 'SELECT ';
+    public string $stmt;
 
-    private $connect;
-
-
-    public $table;
-    public $where;
-    public $limit = '';
     public function __construct()
     {
-        $this->login = 'Yasha123';
-        $this->password = '123test1233';
-        $this->host = '127.0.0.1';
-        $this->user = 'Yasha';
-        $this->connect();
+        $this->connectDB();
     }
 
-    private function connect()
+    public function connectDB()
     {
-        $this->connect = true;
+        $connect = 'mysql:host=MySQL-8.2;dbname=offer';
+        $username = 'root';
+        $password = '';
+        $this->pdo = new PDO($connect, $username, $password);
     }
 
-    public function setWhere($where)
+    public function select($column = '*')
     {
-        $this->where = $where;
+        $this->sql .= $column . ' FROM ' . $this->table . ' ';
+
         return $this;
     }
 
-    public function query()
+    public function where($key, $value)
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->where . $this->limit;
-        $data = [
-                'id' => 0,
-                'name' => 'Yasha',
-        ];
-        return $data;
-    }
-
-    public function setLimit($limit)
-    {
-        $this->limit = ' LIMIT ' . $limit;
+        $this->sql .= 'WHERE ' . $key . '=' . $value;
         return $this;
     }
-}
 
-class User
-{
-    public MySqlConnect $connect;
-    public function __construct()
+    public function execute()
     {
-        $this->connect = new MySqlConnect();
-        $this->connect->table = 'user';
-        $userID = 1;
+        $stmt = $this->pdo->prepare($this->sql);
+        $stmt->execute([]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
 }
-$user = new User();
-$userID = 0;
-$user->connect->setWhere('id = ' . $userID)->setLimit(100)->query();
+
+class User extends mysql
+{
+    public string $table = 'user';
+}
+
+class Albom extends mysql
+{
+    public string $table = 'albom';
+}
+
+class AlbomImages extends mysql
+{
+    public string $table = 'albom_images';
+}
+
+var_dump((new User())->select('id, name')->where('id', 3)->execute());
+
+var_dump((new Albom())->select('id')->execute());
+
+var_dump((new AlbomImages())->select('albom_id')->execute());
+?>
