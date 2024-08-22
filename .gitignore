@@ -2,3 +2,6 @@
 .htaccess
 .idea
 .osp
+/vendor/
+composer.phar
+*.log
